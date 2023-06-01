@@ -100,6 +100,13 @@ const NavBar = ({ handleLogout, isLoggedIn, token }) => {
             >
               Session Signup
             </MenuItem>
+            <MenuItem
+              onClick={handleClose}
+              component={Link}
+              to="/archivedsessions"
+            >
+              Archived Sessions
+            </MenuItem>
           </Menu>
 
           <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>

@@ -11,9 +11,11 @@ import MentorSessions from "./pages/Sessions/MentorSessions";
 import SessionSignup from "./pages/SessionSignup/SessionSignup";
 import MenteeSessions from "./pages/Sessions/MenteeSessions";
 import TimeSlot from "./pages/Profile/TimeSlot";
+import ArchivedSessions from "./pages/ArchivedSession/ArchivedSessions";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./assets/App.css";
+
 
 function App() {
   const [token, setToken] = useLocalStorageState("momentorsToken", null);
@@ -125,6 +127,16 @@ function App() {
           path="/timeslot"
           element={
             <TimeSlot token={token} setAuth={setAuth} isLoggedIn={isLoggedIn} />
+          }
+        />
+        <Route
+        path="/archivedsessions"
+        element={
+          <ArchivedSessions
+          token={token}
+          setAuth={setAuth}
+          isLoggedIn={isLoggedIn}
+          />
           }
         />
       </Routes>
