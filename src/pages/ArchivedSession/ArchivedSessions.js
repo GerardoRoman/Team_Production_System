@@ -58,7 +58,7 @@ const [archivesessions, setArchiveSessions] = useState([])
         {archivesessions.map((session) => 
             <Grid
               container
-              key={archivesessions.pk}
+              key={session.pk}
               sx={{
                 flexGrow: 1,
                 marginLeft: "1rem",
@@ -70,43 +70,51 @@ const [archivesessions, setArchiveSessions] = useState([])
               <Grid item xs={3}>
                 {
                   <Box>
-                    {archivesessions.mentor_first_name} {archivesessions.mentor_last_name}
+                    {session.mentor_first_name} {session.mentor_last_name}
                   </Box>
                 }
               </Grid>
               <Grid item xs={3}>
-                <Box>{new Date(archivesessions.start_time).toLocaleDateString()}</Box>
+                <Box>{new Date(session.start_time).toLocaleDateString()}</Box>
               </Grid>
               <Grid item xs={3}>
                 <Box>
-                  {new Date(archivesessions.start_time).toLocaleTimeString([], {
+                  {new Date(session.start_time).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}{" "}
                   -{" "}
-                  {new Date(archivesessions.end_time).toLocaleTimeString([], {
+                  {new Date(session.end_time).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
                 </Box>
               </Grid>
-              {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <Chip
                   label={
-                    archivesessions.status === "Confirmed"
+                    session.status === "Confirmed"
                       ? "Confirmed"
-                        : archivesessions.status === "Pending"
+                        : session.status === "Pending"
+                        ? "Pending"
+                        : session.status === "Canceled"
+                        ? "Canceled"
+                        : ""
                   }
                   variant="outlined"
                   color={
-                    archivesessions.status === "Confirmed"
+                    session.status === "Confirmed"
                       ? "success"
-                        : archivesessions.status === "Pending"
+                        : session.status === "Pending"
+                        ? "warning"
+                        : session.status === "Canceled"
+                        ? "error"
+                        : ""
                   }
                   size="md"
                   sx={{ margin: ".25rem" }}
                 ></Chip>
-              </Grid> */}
+              </Grid>
             </Grid>
         )}
       </Box>
