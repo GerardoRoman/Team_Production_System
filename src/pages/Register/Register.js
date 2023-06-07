@@ -36,10 +36,11 @@ const Register = ({ setAuth }) => {
 
           .then((res) => {
             setLoading(false);
-            console.log(res.data.auth_token);
             setToken(res.data.auth_token);
             setIsRegistered(true);
             setAuth(userName, res.data.auth_token);
+            sessionStorage.setItem("is_mentor", false);
+            sessionStorage.setItem("is_mentee", false);
             navigate("/profile");
           })
           .catch((e) => {
@@ -111,12 +112,23 @@ const Register = ({ setAuth }) => {
             {loading ? (
               <Button
                 id="loading--button"
-                spinner={<PacmanLoader size={20} color="yellow" />}
+                style={{
+                  backgroundColor: loading ? "black" : "",
+                  color: "yellow",
+                  height: "40px",
+                  width: "100px",
+                }}
               >
-                loading...
+                <PacmanLoader size={20} color="yellow" />
+                {!loading && "Loading..."}
               </Button>
             ) : (
-              <Button type="submit" form="registration-form">
+              <Button
+                id="register--button"
+                type="submit"
+                form="registration-form"
+                style={loading ? { backgroundColor: 'black', color: 'yellow' } : {}}
+              >
                 Register
               </Button>
             )}

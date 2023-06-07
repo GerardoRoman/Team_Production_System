@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { TextField, FormLabel, Input, Button } from "@mui/material";
+import { TextField, FormLabel, Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,7 +9,6 @@ import Select from "@mui/material/Select";
 
 export default function EditProfile({ token, pk, setAuth }) {
   const [error, setError] = useState("");
-  const [userName, setUserName] = useState("");
   const [originalProfile, setOriginalProfile] = useState({});
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -28,13 +27,23 @@ export default function EditProfile({ token, pk, setAuth }) {
     : `+1${phoneNumber}`;
 
   const skillsChoices = [
-    "HTML",
+    "AWS S3",
+    "Bootstrap",
     "CSS",
-    "JavaScript",
-    "React",
-    "Python",
     "Django",
-    "Django REST",
+    "Git",
+    "GitHub",
+    "HTML",
+    "Insomnia",
+    "JavaScript",
+    "MUI",
+    "Other",
+    "PostgreSQL",
+    "Postico",
+    "Python",
+    "React",
+    "SQL",
+    "Time Management",
   ];
 
   useEffect(() => {
@@ -162,7 +171,6 @@ export default function EditProfile({ token, pk, setAuth }) {
           })
           .then((res) => {
             setLoading(false);
-            console.log(res.data);
             navigate("/profile");
           })
           .catch((e) => {
