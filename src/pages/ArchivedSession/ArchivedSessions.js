@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function ArchivedSessions({ token, pk, setAuth }) {
 const [archivesessions, setArchiveSessions] = useState([])
+const [ismentor, setIsMentor] = useState(false)
 
   useEffect(() => {
     axios
@@ -11,9 +12,8 @@ const [archivesessions, setArchiveSessions] = useState([])
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-        console.log(res.data)
         setArchiveSessions(res.data)
-        console.log(archivesessions)
+        setIsMentor(res.data.is_mentor)
       })
       .catch((err) => {
         console.log("error", err);
@@ -68,11 +68,13 @@ const [archivesessions, setArchiveSessions] = useState([])
               }}
             >
               <Grid item xs={3}>
-                {
                   <Box>
+                    {isMentor ?
+                    {session.mentee_first_name} {session.mentee_last_name}
+                    :
                     {session.mentor_first_name} {session.mentor_last_name}
+                    }
                   </Box>
-                }
               </Grid>
               <Grid item xs={3}>
                 <Box>{new Date(session.start_time).toLocaleDateString()}</Box>
