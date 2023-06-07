@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function ArchivedSessions({ token, pk, setAuth }) {
+const [archivesessions, setArchiveSessions] = useState([])
 
-
-useEffect(() => {
+  useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BE_URL}/session/`, {
+      .get(`${process.env.REACT_APP_BE_URL}/archivesession/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((res) => {
-          res.data()
+        console.log(res.data)
+        setArchiveSessions(res.data)
+        console.log(archivesessions)
       })
       .catch((err) => {
         console.log("error", err);
@@ -53,10 +55,10 @@ useEffect(() => {
             <Box>Status:</Box>
           </Grid>
         </Grid>
-          return (
+        {archivesessions.map((session) => 
             <Grid
               container
-              key={session.pk}
+              key={archivesessions.pk}
               sx={{
                 flexGrow: 1,
                 marginLeft: "1rem",
@@ -68,45 +70,45 @@ useEffect(() => {
               <Grid item xs={3}>
                 {
                   <Box>
-                    {session.mentee_first_name} {session.mentee_last_name}
+                    {archivesessions.mentor_first_name} {archivesessions.mentor_last_name}
                   </Box>
                 }
               </Grid>
               <Grid item xs={3}>
-                <Box>{new Date(session.start_time).toLocaleDateString()}</Box>
+                <Box>{new Date(archivesessions.start_time).toLocaleDateString()}</Box>
               </Grid>
               <Grid item xs={3}>
                 <Box>
-                  {new Date(session.start_time).toLocaleTimeString([], {
+                  {new Date(archivesessions.start_time).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}{" "}
                   -{" "}
-                  {new Date(session.end_time).toLocaleTimeString([], {
+                  {new Date(archivesessions.end_time).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
                 </Box>
               </Grid>
-              <Grid item xs={3}>
+              {/* <Grid item xs={3}>
                 <Chip
                   label={
-                    session.status === "Confirmed"
+                    archivesessions.status === "Confirmed"
                       ? "Confirmed"
-                        : session.status === "Pending"
+                        : archivesessions.status === "Pending"
                   }
                   variant="outlined"
                   color={
-                    session.status === "Confirmed"
+                    archivesessions.status === "Confirmed"
                       ? "success"
-                        : session.status === "Pending"
+                        : archivesessions.status === "Pending"
                   }
                   size="md"
                   sx={{ margin: ".25rem" }}
                 ></Chip>
-              </Grid>
+              </Grid> */}
             </Grid>
-          );
+        )}
       </Box>
     </Box>
   );
